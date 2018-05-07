@@ -5,7 +5,7 @@ Object.defineProperty(persion, 'name' ,{
 	//如果为false不能从对象中删除
 	configurable: false,
 	value: "Nicholas",
-	//是否可写
+	//是否可写6
 	writable: true
 })
 
