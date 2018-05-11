@@ -23,3 +23,6 @@ var newPersion = Object.create(person)
 newPersion.name = ' ruby'
 newPersion.friends.push('python')
 console.log(newPersion.friends)
+
+
+
