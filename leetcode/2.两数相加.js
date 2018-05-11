@@ -4,9 +4,17 @@
 
 // 示例：
 
-// 输入：(2 -> 4 -> 3) + (5 -> 6 -> 4)
+// 输入：(2 -> 4 -> 3) + (5 -> 6 -> 4 -> 3)
 // 输出：7 -> 0 -> 8
 // 原因：342 + 465 = 807
+// 342 + 3465 = 3807
+
+// [2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,9]
+// [5,6,4,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,2,4,3,9,9,9,9]
+
+// [5]
+// [5]
+// [0, 1]
 
 /**
  * Definition for singly-linked list.
@@ -24,36 +32,36 @@ var addTwoNumbers = function(l1, l2) {
     console.log(l1)
     console.log(l2)
     //把l1 l2还原成number
-    const nodeNumber1 = listNodeToNumber(l1)
-    const nodeNumber2 = listNodeToNumber(l2)
-
-    console.log(nodeNumber1)
-    console.log(nodeNumber2)
-    const resultNumberArray = (nodeNumber1 + nodeNumber2).toString().split('').reverse()
-    let resultListNode;
-    let curListNode;
-    for (const valueString of resultNumberArray) {
-        if (!resultListNode) {
-            resultListNode = new ListNode(parseInt(valueString))
-            curListNode = resultListNode
+    let node1 = l1, node2 = l2, resultNode, curNode
+    while (node1 || node2) {
+        const val1 = node1 ? node1.val : 0
+        const val2 = node2 ? node2.val : 0
+        let valSum = val1 + val2
+        if (curNode && curNode.carry) {
+            valSum += 1
+        }
+        let carry = valSum >= 10
+        if (carry) {
+            valSum -= 10
+        }
+        if (!resultNode) {
+            resultNode = new ListNode(valSum)
+            curNode = resultNode
         } else {
-            curListNode.next = new ListNode(parseInt(valueString))
-            curListNode = curListNode.next
+            curNode.next = new ListNode(valSum)
+            curNode = curNode.next
+        }
+        curNode.carry = carry
+        node1 = node1 != null ? node1.next : null
+        node2 = node2 != null ? node2.next : null
+
+        //如果有进位但是处于末尾
+        if (carry && !node1 && !node2) {
+            curNode.next = new ListNode(1)
         }
     }
-    console.log(resultListNode)
-    return resultListNode
+    return resultNode
 };
-
-function listNodeToNumber(listNode) {
-    let curNode = listNode
-    const array = []
-    while (curNode) {
-        array.unshift(curNode.val)
-        curNode = curNode.next
-    }
-    return parseInt(array.join(''))
-}
 
 function ListNode(val) {
     this.val = val;
@@ -67,5 +75,8 @@ listNode.next.next = new ListNode(3)
 const listNode2 = new ListNode(5)
 listNode2.next = new ListNode(6)
 listNode2.next.next = new ListNode(4)
+listNode2.next.next.next = new ListNode(3)
+
+//listNode2.next.next.next = new ListNode(4)
 
 addTwoNumbers(listNode, listNode2)
