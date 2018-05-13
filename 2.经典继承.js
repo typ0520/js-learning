@@ -1,3 +1,5 @@
+//隐式混入
+
 function SuperType (name) {
 	this.name = true;
 
