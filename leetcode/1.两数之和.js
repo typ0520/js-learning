@@ -1,3 +1,16 @@
+// 给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。
+
+// 你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。
+
+// 示例:
+
+// 给定 nums = [2, 7, 11, 15], target = 9
+
+// 因为 nums[0] + nums[1] = 2 + 7 = 9
+// 所以返回 [0, 1]
+
+const assert = require('assert');
+
 /**
  * @param {number[]} nums
  * @param {number} target
@@ -16,12 +29,9 @@ var twoSum = function(nums, target) {
         }
         idx++
     }
-
-    for (let i = 0 ;i < nums.length; i++) {
-        
-    }
 };
 
 const nums = [3,2,4]
 const target = 6
-const result = twoSum(nums, target)
+
+assert.deepEqual(twoSum(nums, target), [1, 2])
