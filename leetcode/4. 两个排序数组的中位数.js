@@ -36,6 +36,7 @@ var findMedianSortedArrays = function(nums1 = [], nums2 = []) {
     }
 };
 
+// http://bubkoo.com/2014/01/15/sort-algorithm/merge-sort/
 //合并两个有序数组
 function merge(nums1 = [], nums2 = []) {
     let i = 0, j = 0, k = 0
