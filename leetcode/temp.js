@@ -1,7 +1,3 @@
-var a = 1
-function foo () {
-    a = a + 1
-}
+const fs = require('fs')
 
-foo()
-console.log(a)
+fs.unlinkSync('/Users/tong/Desktop/doc/100202upsdk_cancel_normal.png')

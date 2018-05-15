@@ -1,0 +1,3 @@
+- [mozilla javascript文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide)
+- [nodejs文档](http://nodejs.cn/api/)
+- [nodejs教程](http://www.runoob.com/nodejs/nodejs-module-system.html)
