@@ -20,7 +20,7 @@ var longestPalindrome = function (s = '') {
     if (s.length <= 1) {
         return s
     }
-    let maxLongestPalindrome = ''
+    let maxLongestPalindrome = s[0]
     for (let i = 1, length = s.length; i < length; i++) {
         //babad => aba
         //csknksog => sknks
@@ -44,9 +44,6 @@ var longestPalindrome = function (s = '') {
             j--
             k++
         }
-    }
-    if (maxLongestPalindrome === '') {
-        maxLongestPalindrome = s[0]
     }
     return maxLongestPalindrome
 };
