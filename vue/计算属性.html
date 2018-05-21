@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Vue 示例</title>
+</head>
+<body>
+
+	<div id="app">
+		总价: {{ prices }}
+
+		<p> 姓名: {{ fullName }} </p>
+	</div>
+
+	<script type="text/javascript" src="https://unpkg.com/vue@2.5.16/dist/vue.min.js"></script>
+
+	<script type="text/javascript">
+
+		var app = new Vue({
+			el: '#app',
+			data: {
+				packages1: [
+					{
+						name: 'iPhone 7',
+						price: 7199,
+						count: 2
+					},
+					{
+						name: 'ipad',
+						price: 2888,
+						count: 1
+					}
+				],
+				packages2: [
+					{
+						name: 'huawei',
+						price: 2999,
+						count: 3
+					},
+					{
+						name: 'xiaomi 7',
+						price: 2499,
+						count: 4
+					}
+				],
+				firstName: 'Jack',
+				lastName: 'Green'
+			},
+			computed: {
+				prices: function() {
+					var prices = 0;
+					for (var i = 0; i < this.packages1.length; i++) {
+						prices += this.packages1[i].price * this.packages1[i].count;
+					}
+
+					for (var i = 0; i < this.packages2.length; i++) {
+						prices += this.packages2[i].price * this.packages2[i].count;
+					}
+					return prices;
+				},
+				fullName: {
+					get: function() {
+						return this.firstName + ' ' + this.lastName;
+					},
+					set: function(newValue) {
+						var names = newValue.split(' ');
+						this.firstName = names[0];
+						this.lastName = names[1];
+					}
+				}
+			}
+		})
+		//修改任意值就会触发重新计算
+		//app.packages1[1].count = 10
+	</script>
+</body>
+</html>

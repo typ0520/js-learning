@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Vue 示例</title>
+</head>
+<body>
+
+	<div id="app">
+		<p>====循环====</p>
+		<ul>
+			<li v-for="book in books" v-model="book">{{ book.name }}</li>
+		</ul>
+
+		<p>====双向绑定====</p>
+		<input type="text" v-model="name" placeholder="你的名字">
+		<h1>你好, {{ name }}</h1>
+
+		<p>====点击事件====</p>
+		<p v-if="show">这是一段文本</p>
+		<button v-on:click="handleClose">{{ show ? "点击隐藏v-bind" : "点击显示v-bind" }}</button>
+
+		<p>====管道====</p>		
+		<h1>{{ date | formatDate("当前时间: ") }}</h1>
+
+		<p>====往已有的元素上添加html====</p>
+		<span v-html="link"></span>
+
+		<p>====跳过{{ }}的解析====</p>
+		<span v-pre>{{ 这里的内容是不会被编译的 }}</span>
+
+		<p>====执行表达式====</p>		
+		<p>{{ isOk ? '确定' : '取消' }} </p>
+
+		<p>====语法糖====</p>
+		<ul>
+			<li>
+				<p>v-bind可以直接写一个冒号":"</p>
+				<a v-bind:href="url">链接 v-bind:href="url"</a>  <span style="margin-left: 10px;margin-right: 10px">==</span>   <a :href="url">链接  :href="url"</a>
+			</li>
+			<li>
+				<p>v-on可以直接用@来缩写</p>
+				<p v-if="show2">这是一段文本@</p>
+				<button @click="handleClose2">{{ show ? "点击隐藏@" : "点击显示@" }}</button>
+			</li>
+		</ul>
+		<p>====计算属性====</p>
+		<ur>
+			<li>
+					{{ text.split(',').reverse().join(',') }}
+					{{ reversedText }}
+			</li>
+		</ur>
+	</div>
+
+
+	<script type="text/javascript" src="https://unpkg.com/vue@2.5.16/dist/vue.min.js"></script>
+
+	<script type="text/javascript">
+		var padDate = function(value, prefix) {
+			return value < 10 ? '0' + value : value;
+		}
+		new Vue({
+			el: '#app',
+			data: {
+				books: [
+					{ name: 'vue' },
+					{ name: 'haha' },
+					{ name: '从入门到放弃' }
+				],
+				name: "tong",
+				show: true,
+				date: new Date(),
+				link: "<a href='#'>链接</a>",
+				isOk: false,
+				url: "http://www.baidu.com",
+				show2: true,
+				text: '123,456'
+			},
+			methods: {
+				handleClose: function() {
+					if (this.show) {
+						this.show = false;
+					}
+					else {
+						this.show = true;
+					}
+				},
+				handleClose2: function() {
+					if (this.show2) {
+						this.show2 = false;
+					}
+					else {
+						this.show2 = true;
+					}
+				}
+			},
+			//过滤器
+			filters: {
+				formatDate: function (value, prefix) {
+					var date = new Date(value);
+					var year = date.getFullYear();
+					var month = padDate(date.getMonth() + 1);
+					var day = padDate(date.getDate());
+					var hours = padDate(date.getHours());
+					var minutes = padDate(date.getMinutes());
+					var seconds = padDate(date.getSeconds())
+
+					return prefix + year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds
+				}
+			},
+			created: function() {
+				console.log("created: " + this.name)
+			},
+			mounted: function() {
+				var _this = this
+				this.timer = setInterval(function(){
+					_this.date = new Date()
+				}, 1000);
+			},
+			beforeDestroy: function() {
+				if (this.timer) {
+					clearInterval(this.timer)
+				}
+			},
+			computed: {
+				reversedText: function() {
+					//这里的this指的是当前的Vue实例
+					return this.text.split(',').reverse().join(',');
+				}
+			}
+		})
+	</script>
+</body>
+</html>

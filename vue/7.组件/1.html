@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>组件化</title>
+</head>
+<body>
+	<div id="app">
+		<my-component></my-component>
+		<table>
+			<tbody is='my-component'></tbody>
+		</table>
+	</div>
+
+	<div id="app2">
+		<my-component prefix='前缀: ' my-message='哈哈'></my-component>
+	</div>
+
+	<script type="text/javascript" src="https://unpkg.com/vue@2.5.16/dist/vue.min.js"></script>
+
+	<script type="text/javascript">
+		//全局组件
+		Vue.component('my-component', {
+			template: '<div>这里是组件的内容 {{ message }}</div>',
+			data: function() {
+				return {
+					message: '组件内容message'
+				}
+			}
+		})
+		new Vue({
+			el: '#app'
+		})
+
+		var Child = {
+			template: '<button @click="counter++">{{ prefix }} {{ counter }} {{ MyMessage }}</button>',
+			data: function() {
+				return {
+					counter: 0
+				}
+			},
+			props: ['prefix', 'MyMessage']
+		}
+		new Vue({
+			el: '#app2',
+			components: {
+				'my-component': Child
+			}
+		})
+	</script>
+</body>
+</html>

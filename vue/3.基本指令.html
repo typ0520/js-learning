@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Vue 示例</title>
+
+	<style type="text/css">
+		[v-cloak] {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+
+	<p>=====v-cloak会在Vue实例结束编译时从绑定的HTML元素上移除=====</p>      
+	<div id="app" v-cloak>
+		{{ message }}
+	</div>
+
+	<p>=====v-once作用是定义他的元素只会被渲染一次=====</p>      
+	<div id="app2" v-once>
+		{{ test_once }}
+	</div>
+
+	<p>=====v-if v-else-if v-else=====</p>      
+	<div id="app3">
+		<p v-if="status === 1">当status为1时显示改行</p>
+		sss
+		<p v-else-if="status === 2">当status为2时显示改行</p>
+		<p v-else>否则显示改行</p>
+	</div>
+
+	<p>=====使用template复用模板=======</p>
+	<div id="app4">
+		<template v-if="type === 'name'">
+			<label>用户名: </label>
+			<input placeholder="输入用户名">
+		</template>
+		<template v-else>
+			<label>邮箱: </label>
+			<input placeholder="输入邮箱">
+		</template>
+
+		<button @click="handleToggleClick">切换输入类型</button>
+	</div>	
+
+	<p>=====使用template复用模板(禁止复用)=======</p>
+	<div id="app5">
+		<template v-if="type === 'name'">
+			<label>用户名: </label>
+			<input placeholder="输入用户名" key="name-input">
+		</template>
+		<template v-else>
+			<label>邮箱: </label>
+			<input placeholder="输入邮箱" key="name-input">
+		</template>
+
+		<button @click="handleToggleClick">切换输入类型2</button>
+	</div>	
+
+	<p>=====v-show(v-if时删除、添加元素控制的，v-show是控制style="display: none;")=====</p>
+	<div id="app6">
+		<p v-show="status === 1">当status为1时显示改行</p>
+	</div>
+
+	<p>=====v-for(遍历数组)=====</p>
+	<p>调用数组的这些方法会触发视图更新push pop shift unshift splice sort reverse
+		vue7.books.push({ name: 'c语言程序设计' })
+		通过索引设置项或者修改数组长度不会触发更新，vue7.books[1] = {}  vue7.books.length= 1
+	</p>
+	<p>解决第一个问题可以通过Vue.set(app.books, 3, {})</p>
+	<div id="app7">
+		<url>
+			<li v-for="(book, index) in books">{{ index }} - {{ book.name }}</li>
+		</url>
+	</div>
+
+	<p>=====v-for(遍历对象)=====</p>
+	<div id="app8">
+		<url>
+			<li v-for="(value, key, index) in user">{{ index }} - {{ key }} - {{ value }}</li>
+		</url>
+	</div>
+
+	<p>=====v-for(迭代整数)=====</p>
+	<div id="app9">
+		<url>
+			<li v-for="n in 6">{{ n }}</li>
+		</url>
+	</div>
+
+	<p>=====方法与事件v-on:click 相当于@= ，可以调用方法也可以执行语句====</p>
+	<div id="app10">
+		点击次数: {{ counter }}
+
+		<button @click="counter++">+ 1</button>
+	</div>
+
+	<p>=====带参数调用方法====</p>
+	<div id="app11">
+		<a href='http://www.apple.com' @click="handleClick('禁止打开', $event)">打开链接-$event是获取事件源, </a>
+	</div>
+
+	<script type="text/javascript" src="https://unpkg.com/vue@2.5.16/dist/vue.min.js"></script>
+
+	<script type="text/javascript">
+		new Vue({
+			el: '#app',
+			data: {
+				message: '这是一段文本'
+			}
+		});
+
+		const vue2 = new Vue({
+			el: '#app2',
+			data: {
+				message: 'v-once',
+				test_once: "内容"
+			}
+		});
+		//不起作用
+		vue2.message = "修改内容";
+
+		const vue3 = new Vue({
+			el: '#app3',
+			data: {
+				status: 1,
+			}
+		});
+
+		const vue4 = new Vue({
+			el: '#app4',
+			data: {
+				type: 'name',
+			},
+			methods: {
+				handleToggleClick: function() {
+					this.type = this.type === 'name' ? 'mail' : 'name';
+				}
+			}
+		})
+
+		const vue5 = new Vue({
+			el: '#app5',
+			data: {
+				type: 'name',
+			},
+			methods: {
+				handleToggleClick: function() {
+					this.type = this.type === 'name' ? 'mail' : 'name';
+				}
+			}
+		})
+
+		const vue6 = new Vue({
+			el: '#app6',
+			data: {
+				status: 1,
+			}
+		});
+
+		const vue7 = new Vue({
+			el: '#app7',
+			data: {
+				books: [
+					{ name: 'vue.js实战' },
+					{ name: 'vue.js从入门到放弃' }
+				]
+			}
+		});
+		//调用数组的这些方法会触发视图更新push pop shift unshift splice sort reverse
+		vue7.books.push({ name: 'c语言程序设计' })
+		//通过索引设置项或者修改数组长度不会触发更新，vue7.books[1] = {}  vue7.books.length= 1
+
+		const vue8 = new Vue({
+			el: '#app8',
+			data: {
+				user: {
+					name: 'Aresn',
+					age: 26
+				}
+			}
+		});
+
+		const vue9 = new Vue({
+			el: '#app9'
+		});
+
+		const vue10 = new Vue({
+			el: '#app10',
+			data: {
+				counter: 0
+			}
+		});
+
+		const vue11 = new Vue({
+			el: '#app11',
+			methods: {
+				handleClick: function(message, event) {
+					event.preventDefault();
+					window.alert(message)
+				}
+			}
+		});
+	</script>
+</body>
+</html>
