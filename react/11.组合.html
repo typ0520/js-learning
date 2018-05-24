@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="./build/react.js"></script>
+    <script src="./build/react-dom.js"></script>
+    <script src="./build/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="root1"></div>
+    <div id="root2"></div>
+    <div id="root3"></div>
+    <div id="root4"></div>
+    <div id="root5"></div>
+    <div id="root6"></div>
+    <div id="root7"></div>
+
+    <script type="text/babel">
+      function FancyBorder(props) {
+        return (
+          <div className={'FancyBorder FancyBorder-' + props.color}>
+            哈哈哈
+            {props.children}
+            哈哈哈
+          </div>
+        )
+      }
+
+      function WelcomeDialog() {
+        return (
+          <FancyBorder color='blue'>
+            <h1 className="dialog-title">
+              Welcome
+            </h1>
+            <p className="dialog-message">
+              Thank you for visiting our spacecraft!
+            </p>
+          </FancyBorder>
+        )
+      }
+
+      ReactDOM.render(
+        <WelcomeDialog />,
+        document.getElementById('root1')
+      );
+
+      function SplitPane(props) {
+        return (
+          <div className='SplitPane'>
+            <div>
+              {props.left}
+            </div>
+            <div>
+              {props.right}
+            </div>
+          </div>
+        )
+      }
+
+      function Contacts(props) {
+        return <h1>contacts</h1>
+      }
+
+      function Chat(props) {
+        return <h1>chat</h1>
+      }
+
+      function App() {
+        return (
+          <SplitPane 
+            left={
+              <Contacts />
+            }
+            right={
+              <Chat />
+            }/>
+        )
+      }
+
+      ReactDOM.render(
+        <App />,
+        document.getElementById('root1')
+      );
+    </script>
+  </body>
+</html>
