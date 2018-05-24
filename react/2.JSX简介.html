@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="./build/react.js"></script>
+    <script src="./build/react-dom.js"></script>
+    <script src="./build/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+    //jsx用()包起来，里面的表达式用{}
+      function formatName(user) {
+        return user.firstName + ' ' + user.lastName;
+      }
+
+      const user = {
+        firstName: 'tong',
+        lastName: 'yp'
+      };
+
+      const element = (
+        <h1>
+          hello, {formatName(user)}!
+        </h1>
+      )
+      const element2 = React.createElement(
+        'h1',
+        {className: 'greeting'},
+        'Hello world!'
+      );
+      const element3 = {
+        type: 'h1',
+        props: {
+          className: 'greeting',
+          children: 'Hello world'
+        }
+      }
+      ReactDOM.render(
+        element,
+        document.getElementById('root')
+      );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="./build/react.js"></script>
+    <script src="./build/react-dom.js"></script>
+    <script src="./build/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="root1"></div>
+    <div id="root2"></div>
+    <div id="root3"></div>
+    <div id="root4"></div>
+    <div id="root5"></div>
+    <div id="root6"></div>
+    <div id="root7"></div>
+
+    <script type="text/babel">
+      class NumberForm extends React.Component {
+        constructor(props) {
+          super(props)
+          this.state = {value: ''};
+          this.handleChange = this.handleChange.bind(this);
+          this.handleSubmit = this.handleSubmit.bind(this);
+        }
+
+        handleChange(event) {
+          this.setState({value: event.target.value});
+        }
+
+        handleSubmit(event) {
+          alert('submit' + this.state.value);
+          event.preventDefault();
+        }
+
+        render() {
+          return (
+            <form onSubmit={this.handleSubmit}>
+              <label>Name:
+                <input type="text" value={this.state.value} onChange={this.handleChange} />
+              </label>
+              <input type="submit" value="submit" />
+            </form>
+          )
+        }
+      }
+      ReactDOM.render(
+        <NumberForm />,
+        document.getElementById('root1')
+      );
+
+      class FlavorForm extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {value: 'coconut'};
+
+          this.handleChange = this.handleChange.bind(this);
+          this.handleSubmit = this.handleSubmit.bind(this);
+        }
+
+        handleChange(event) {
+          this.setState({value: event.target.value});
+        }
+
+        handleSubmit(event) {
+          alert('Your favorite flavor is: ' + this.state.value);
+          event.preventDefault();
+        }
+
+        render() {
+          return (
+            <form onSubmit={this.handleSubmit}>
+              <label>
+                Pick your favorite La Croix flavor:
+                <select value={this.state.value} onChange={this.handleChange}>
+                  <option value="grapefruit">Grapefruit</option>
+                  <option value="lime">Lime</option>
+                  <option value="coconut">Coconut</option>
+                  <option value="mango">Mango</option>
+                </select>
+              </label>
+              <input type="submit" value="Submit" />
+            </form>
+          );
+        }
+      }
+
+      ReactDOM.render(
+        <FlavorForm />,
+        document.getElementById('root2')
+      );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="./build/react.js"></script>
+    <script src="./build/react-dom.js"></script>
+    <script src="./build/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      //时间名使用驼峰命令
+      //注意方法调用的this
+      class Toggle extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {isToggleOn: true};
+          this.handleClick = this.handleClick.bind(this);
+        }
+
+        handleClick () {
+          this.setState(prevState => ({
+            isToggleOn: !prevState.isToggleOn
+          }))
+        }
+
+        handleClick2 () {
+          this.setState(prevState => ({
+            isToggleOn: !prevState.isToggleOn
+          }))
+        }
+
+        render() {
+          return (
+            <div>
+              <button onClick={this.handleClick}>{this.state.isToggleOn ? 'ON' : 'OFF'}</button>
+              <!--
+              
+              -->
+              <button onClick={(e) => this.handleClick2(e)}>{this.state.isToggleOn ? 'ON' : 'OFF'}</button>
+            </div>
+          )
+        }
+      }
+
+      function handleClick(e) {
+        e.preventDefault();
+        console.log('The link was clicked.');
+      }
+
+      ReactDOM.render(
+        <div>
+          <a href='#' onClick={handleClick}>
+            Click me
+          </a>
+          <br />
+          <Toggle />
+        </div>,
+        document.getElementById('root')
+      );
+    </script>
+  </body>
+</html>

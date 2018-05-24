@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="./build/react.js"></script>
+    <script src="./build/react-dom.js"></script>
+    <script src="./build/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="root1"></div>
+    <div id="root2"></div>
+    <div id="root3"></div>
+    <div id="root4"></div>
+    <div id="root5"></div>
+    <div id="root6"></div>
+    <div id="root7"></div>
+
+    <script type="text/babel">
+       function Welcome(props) {
+           return <h1>Hello, {props.name}</h1>;
+       }
+       const element = <Welcome name="Sara" />;
+       ReactDOM.render(
+           element,
+           document.getElementById('root1')
+       )
+
+       class Welcome1 extends React.Component {
+         render () {
+           return <h1>Hello, {this.props.name}</h1>
+         }
+       }
+
+      const element2 = <Welcome1 name="dsds" />;
+       ReactDOM.render(
+           element2,
+           document.getElementById('root2')
+       )
+
+       function App() {
+         return (
+           <div>
+            <Welcome name="app1" />
+            <Welcome name="app2" />
+            <Welcome1 name="app3" />
+           </div>
+         )
+       }
+       ReactDOM.render(
+           <App />,
+           document.getElementById('root3')
+       )
+    </script>
+  </body>
+</html>
