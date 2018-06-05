@@ -1,3 +1,4 @@
 #!/bin/bash
-
-docker run -d -p 8087:8087 koa-hello-world
+docker build -t typ0520/node-web-app .
+docker run --rm -p 49160:8080 -d typ0520/node-web-app
+curl -i localhost:49160

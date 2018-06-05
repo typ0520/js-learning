@@ -1,8 +1,19 @@
 FROM node:8.11.1-alpine
-WORKDIR /app/
-COPY package.json yarn.lock ./
-RUN ["npm", "install"]
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
+
+# RUN npm install
+# If you are building your code for production
+RUN npm install --only=production
+
+# Bundle app source
 COPY . .
-ENV HOST=0.0.0.0 PORT=8070 NODE_ENV=production
-EXPOSE 8070
-CMD ["node", "app.js"]
+
+EXPOSE 8080
+CMD [ "npm", "start" ]
