@@ -6,7 +6,9 @@ app.use(async ctx => {
 });
 
 // Constants
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
+
+console.log(process.env.NODE_ENV + ' , ' + process.env.PORT)
 
 app.listen(PORT, () => {
 	console.log(`Running on http://127.0.0.1:${PORT}`);
